@@ -16,6 +16,7 @@
     body {
       background: #f5f8fc;
       color: #111827;
+      zoom: 2.5; /* Makes the whole website 2.5x bigger */
     }
 
     .page {
@@ -124,11 +125,6 @@
       color: #16a34a;
     }
 
-    .red-bg {
-      background: #fee2e2;
-      color: #dc2626;
-    }
-
     .summary-label {
       font-size: 20px;
       color: #64748b;
@@ -149,14 +145,10 @@
       color: #dc2626;
     }
 
-    .gray {
-      color: #64748b;
-    }
-
     .small-percent {
       font-size: 20px;
       font-weight: 700;
-      margin-left: 18px;
+      margin-left: 28px;
     }
 
     .section-card {
@@ -198,10 +190,6 @@
       padding: 22px 26px;
       font-size: 18px;
       border-bottom: 1px solid #e2e8f0;
-    }
-
-    tbody tr {
-      transition: 0.2s;
     }
 
     tbody tr:hover {
@@ -298,12 +286,6 @@
       height: 300px;
     }
 
-    .chart-empty-text {
-      fill: #94a3b8;
-      font-size: 26px;
-      font-weight: 700;
-    }
-
     .modal {
       display: none;
       position: fixed;
@@ -317,9 +299,7 @@
 
     .modal-content {
       background: white;
-      width: 450px;
-      max-height: 90vh;
-      overflow-y: auto;
+      width: 420px;
       border-radius: 14px;
       padding: 28px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.25);
@@ -347,12 +327,6 @@
       border: 1px solid #cbd5e1;
       border-radius: 8px;
       font-size: 16px;
-    }
-
-    .help-text {
-      color: #64748b;
-      font-size: 13px;
-      margin-top: 5px;
     }
 
     .modal-actions {
@@ -383,6 +357,10 @@
     }
 
     @media (max-width: 900px) {
+      body {
+        zoom: 1;
+      }
+
       .header {
         padding: 0 22px;
       }
@@ -462,12 +440,12 @@
           </div>
           <div>
             <div class="summary-label">Portfolio Value</div>
-            <div class="summary-value" id="portfolioValue">$0.00</div>
+            <div id="portfolioValue" class="summary-value">$0.00</div>
           </div>
         </div>
 
         <div class="summary-card">
-          <div class="icon-circle green-bg" id="todayIcon">
+          <div class="icon-circle green-bg">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
               <path d="M3 17l6-6l4 4l8-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M15 6h6v6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -476,14 +454,14 @@
           <div>
             <div class="summary-label">Today</div>
             <div>
-              <span class="summary-value gray" id="todayValue">$0.00</span>
-              <span class="small-percent gray" id="todayPercent">0.00%</span>
+              <span id="todayValue" class="summary-value green">$0.00</span>
+              <span id="todayPercent" class="small-percent green">0.00%</span>
             </div>
           </div>
         </div>
 
         <div class="summary-card">
-          <div class="icon-circle green-bg" id="gainIcon">
+          <div class="icon-circle green-bg">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
               <path d="M8 4h8v5a4 4 0 01-8 0V4z" stroke="currentColor" stroke-width="2"/>
               <path d="M6 6H3v2a4 4 0 004 4" stroke="currentColor" stroke-width="2"/>
@@ -495,8 +473,8 @@
           <div>
             <div class="summary-label">Total Gain/Loss</div>
             <div>
-              <span class="summary-value gray" id="totalGainValue">$0.00</span>
-              <span class="small-percent gray" id="totalGainPercent">0.00%</span>
+              <span id="totalGainValue" class="summary-value green">$0.00</span>
+              <span id="totalGainPercent" class="small-percent green">0.00%</span>
             </div>
           </div>
         </div>
@@ -512,8 +490,6 @@
               <th>Ticker</th>
               <th>Company</th>
               <th>Shares</th>
-              <th>Market Value</th>
-              <th>Today</th>
               <th>Gain/Loss</th>
               <th>Action</th>
             </tr>
@@ -552,18 +528,58 @@
             <line x1="60" y1="195" x2="1180" y2="195" stroke="#dbe3ee" stroke-dasharray="4" />
             <line x1="60" y1="250" x2="1180" y2="250" stroke="#dbe3ee" stroke-dasharray="4" />
 
-            <text x="0" y="35" fill="#475569" font-size="18">$0</text>
-            <text x="0" y="90" fill="#475569" font-size="18">$0</text>
-            <text x="0" y="145" fill="#475569" font-size="18">$0</text>
-            <text x="0" y="200" fill="#475569" font-size="18">$0</text>
-            <text x="0" y="255" fill="#475569" font-size="18">$0</text>
+            <text x="0" y="35" fill="#475569" font-size="18">$26K</text>
+            <text x="0" y="90" fill="#475569" font-size="18">$24K</text>
+            <text x="0" y="145" fill="#475569" font-size="18">$22K</text>
+            <text x="0" y="200" fill="#475569" font-size="18">$20K</text>
+            <text x="0" y="255" fill="#475569" font-size="18">$18K</text>
 
             <line x1="60" y1="30" x2="60" y2="250" stroke="#cbd5e1" />
             <line x1="60" y1="250" x2="1180" y2="250" stroke="#cbd5e1" />
 
-            <text x="480" y="150" class="chart-empty-text">
-              Add stocks to start tracking your portfolio
-            </text>
+            <defs>
+              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2563eb" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#2563eb" stop-opacity="0.02"/>
+              </linearGradient>
+            </defs>
+
+            <path
+              d="M60,185 
+                 L90,183 L120,195 L150,190 L180,210 L220,198 L260,188 
+                 L300,175 L340,178 L380,165 L420,150 L460,135 
+                 L500,152 L540,140 L580,155 L620,148 L660,135 
+                 L700,115 L740,128 L780,108 L820,118 L860,100 
+                 L900,110 L940,85 L980,70 L1020,82 L1060,65 
+                 L1100,55 L1140,68 L1180,50
+                 L1180,250 L60,250 Z"
+              fill="url(#chartGradient)"
+            />
+
+            <path
+              d="M60,185 
+                 L90,183 L120,195 L150,190 L180,210 L220,198 L260,188 
+                 L300,175 L340,178 L380,165 L420,150 L460,135 
+                 L500,152 L540,140 L580,155 L620,148 L660,135 
+                 L700,115 L740,128 L780,108 L820,118 L860,100 
+                 L900,110 L940,85 L980,70 L1020,82 L1060,65 
+                 L1100,55 L1140,68 L1180,50"
+              fill="none"
+              stroke="#2563eb"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <text x="85" y="285" fill="#475569" font-size="16">Apr 20</text>
+            <text x="210" y="285" fill="#475569" font-size="16">Apr 27</text>
+            <text x="330" y="285" fill="#475569" font-size="16">May 4</text>
+            <text x="450" y="285" fill="#475569" font-size="16">May 11</text>
+            <text x="575" y="285" fill="#475569" font-size="16">May 18</text>
+            <text x="700" y="285" fill="#475569" font-size="16">May 25</text>
+            <text x="825" y="285" fill="#475569" font-size="16">Jun 1</text>
+            <text x="950" y="285" fill="#475569" font-size="16">Jun 8</text>
+            <text x="1060" y="285" fill="#475569" font-size="16">Jun 15</text>
 
           </svg>
         </div>
@@ -577,35 +593,22 @@
 
       <div class="form-group">
         <label for="tickerInput">Ticker Symbol</label>
-        <input type="text" id="tickerInput" placeholder="Example: AAPL" />
+        <input type="text" id="tickerInput" placeholder="Example: MSFT" />
       </div>
 
       <div class="form-group">
         <label for="companyInput">Company Name</label>
-        <input type="text" id="companyInput" placeholder="Example: Apple" />
+        <input type="text" id="companyInput" placeholder="Example: Microsoft" />
       </div>
 
       <div class="form-group">
         <label for="sharesInput">Shares</label>
-        <input type="number" id="sharesInput" placeholder="Example: 10" />
+        <input type="number" id="sharesInput" placeholder="Example: 8" />
       </div>
 
       <div class="form-group">
-        <label for="marketValueInput">Market Value</label>
-        <input type="number" id="marketValueInput" placeholder="Example: 2500" />
-        <div class="help-text">This is the current total value of this stock position.</div>
-      </div>
-
-      <div class="form-group">
-        <label for="todayInput">Today Change</label>
-        <input type="number" id="todayInput" placeholder="Example: 50 or -20" />
-        <div class="help-text">Use a positive or negative number.</div>
-      </div>
-
-      <div class="form-group">
-        <label for="gainInput">Total Gain/Loss</label>
-        <input type="number" id="gainInput" placeholder="Example: 230 or -100" />
-        <div class="help-text">Use a positive or negative number.</div>
+        <label for="gainInput">Gain/Loss</label>
+        <input type="text" id="gainInput" placeholder="Example: +$120.00 or -$50.00" />
       </div>
 
       <div class="modal-actions">
@@ -616,9 +619,14 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "myStockTrackerStocksV2";
-
+    const STORAGE_KEY = "myStockTrackerStocks";
     let stocks = [];
+
+    const defaultStocks = []; // Starts with zero stocks
+
+    function saveStocks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(stocks));
+    }
 
     function loadStocks() {
       const savedStocks = localStorage.getItem(STORAGE_KEY);
@@ -626,7 +634,7 @@
       if (savedStocks) {
         stocks = JSON.parse(savedStocks);
       } else {
-        stocks = [];
+        stocks = defaultStocks;
         saveStocks();
       }
 
@@ -634,56 +642,73 @@
       updateSummary();
     }
 
-    function saveStocks() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(stocks));
+    function parseMoney(value) {
+      if (!value) return 0;
+      return parseFloat(String(value).replace(/[^0-9.-]/g, "")) || 0;
     }
 
-    function formatMoney(amount) {
-      const number = Number(amount) || 0;
-
-      const formatted = Math.abs(number).toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-
-      if (number > 0) {
-        return "+$" + formatted;
-      }
-
-      if (number < 0) {
-        return "-$" + formatted;
-      }
-
-      return "$0.00";
-    }
-
-    function formatMoneyNoSign(amount) {
-      const number = Number(amount) || 0;
-
-      return "$" + number.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+    function formatMoney(value) {
+      return "$" + Number(value).toFixed(2);
     }
 
     function formatPercent(value) {
-      const number = Number(value) || 0;
-
-      if (number > 0) {
-        return "+" + number.toFixed(2) + "%";
-      }
-
-      if (number < 0) {
-        return number.toFixed(2) + "%";
-      }
-
-      return "0.00%";
+      return Number(value).toFixed(2) + "%";
     }
 
-    function getColorClass(number) {
-      if (number > 0) return "green";
-      if (number < 0) return "red";
-      return "gray";
+    function setPositiveNegativeStyle(element, value) {
+      element.classList.remove("green", "red");
+
+      if (value < 0) {
+        element.classList.add("red");
+      } else {
+        element.classList.add("green");
+      }
+    }
+
+    function updateSummary() {
+      const portfolioValueEl = document.getElementById("portfolioValue");
+      const todayValueEl = document.getElementById("todayValue");
+      const todayPercentEl = document.getElementById("todayPercent");
+      const totalGainValueEl = document.getElementById("totalGainValue");
+      const totalGainPercentEl = document.getElementById("totalGainPercent");
+
+      if (stocks.length === 0) {
+        portfolioValueEl.textContent = "$0.00";
+        todayValueEl.textContent = "$0.00";
+        todayPercentEl.textContent = "0.00%";
+        totalGainValueEl.textContent = "$0.00";
+        totalGainPercentEl.textContent = "0.00%";
+
+        todayValueEl.className = "summary-value green";
+        todayPercentEl.className = "small-percent green";
+        totalGainValueEl.className = "summary-value green";
+        totalGainPercentEl.className = "small-percent green";
+        return;
+      }
+
+      // For now, Portfolio Value and Today stay 0 until you want real calculations later.
+      portfolioValueEl.textContent = "$0.00";
+      todayValueEl.textContent = "$0.00";
+      todayPercentEl.textContent = "0.00%";
+
+      let totalGain = 0;
+      stocks.forEach(stock => {
+        totalGain += parseMoney(stock.gain);
+      });
+
+      totalGainValueEl.textContent = formatMoney(Math.abs(totalGain));
+      if (totalGain < 0) {
+        totalGainValueEl.textContent = "-$" + Math.abs(totalGain).toFixed(2);
+      } else {
+        totalGainValueEl.textContent = "$" + Math.abs(totalGain).toFixed(2);
+      }
+
+      totalGainPercentEl.textContent = "0.00%";
+
+      setPositiveNegativeStyle(totalGainValueEl, totalGain);
+      setPositiveNegativeStyle(totalGainPercentEl, totalGain);
+      todayValueEl.className = "summary-value green";
+      todayPercentEl.className = "small-percent green";
     }
 
     function renderStocks() {
@@ -701,9 +726,7 @@
 
       stocks.forEach((stock, index) => {
         const row = document.createElement("tr");
-
-        const todayClass = getColorClass(stock.todayChange);
-        const gainClass = getColorClass(stock.gainLoss);
+        const gainClass = parseMoney(stock.gain) < 0 ? "red" : "green";
         const yahooUrl = `https://finance.yahoo.com/quote/${stock.ticker}`;
 
         row.innerHTML = `
@@ -714,9 +737,7 @@
             <a class="company-link" href="${yahooUrl}" target="_blank">${stock.company}</a>
           </td>
           <td>${stock.shares} shares</td>
-          <td>${formatMoneyNoSign(stock.marketValue)}</td>
-          <td class="gain-loss ${todayClass}">${formatMoney(stock.todayChange)}</td>
-          <td class="gain-loss ${gainClass}">${formatMoney(stock.gainLoss)}</td>
+          <td class="gain-loss ${gainClass}">${stock.gain}</td>
           <td>
             <button class="delete-btn" onclick="deleteStock(${index})">Delete</button>
           </td>
@@ -724,41 +745,6 @@
 
         table.appendChild(row);
       });
-    }
-
-    function updateSummary() {
-      const portfolioValue = stocks.reduce((sum, stock) => {
-        return sum + Number(stock.marketValue || 0);
-      }, 0);
-
-      const todayValue = stocks.reduce((sum, stock) => {
-        return sum + Number(stock.todayChange || 0);
-      }, 0);
-
-      const totalGainValue = stocks.reduce((sum, stock) => {
-        return sum + Number(stock.gainLoss || 0);
-      }, 0);
-
-      const todayPercent = portfolioValue === 0 ? 0 : (todayValue / portfolioValue) * 100;
-      const totalGainPercent = portfolioValue === 0 ? 0 : (totalGainValue / portfolioValue) * 100;
-
-      document.getElementById("portfolioValue").textContent = formatMoneyNoSign(portfolioValue);
-
-      const todayElement = document.getElementById("todayValue");
-      const todayPercentElement = document.getElementById("todayPercent");
-      todayElement.textContent = formatMoney(todayValue);
-      todayPercentElement.textContent = formatPercent(todayPercent);
-
-      const totalGainElement = document.getElementById("totalGainValue");
-      const totalGainPercentElement = document.getElementById("totalGainPercent");
-      totalGainElement.textContent = formatMoney(totalGainValue);
-      totalGainPercentElement.textContent = formatPercent(totalGainPercent);
-
-      todayElement.className = "summary-value " + getColorClass(todayValue);
-      todayPercentElement.className = "small-percent " + getColorClass(todayValue);
-
-      totalGainElement.className = "summary-value " + getColorClass(totalGainValue);
-      totalGainPercentElement.className = "small-percent " + getColorClass(totalGainValue);
     }
 
     function openModal() {
@@ -775,8 +761,6 @@
       document.getElementById("tickerInput").value = "";
       document.getElementById("companyInput").value = "";
       document.getElementById("sharesInput").value = "";
-      document.getElementById("marketValueInput").value = "";
-      document.getElementById("todayInput").value = "";
       document.getElementById("gainInput").value = "";
     }
 
@@ -784,22 +768,18 @@
       const ticker = document.getElementById("tickerInput").value.trim().toUpperCase();
       const company = document.getElementById("companyInput").value.trim();
       const shares = document.getElementById("sharesInput").value.trim();
-      const marketValue = document.getElementById("marketValueInput").value.trim();
-      const todayChange = document.getElementById("todayInput").value.trim();
-      const gainLoss = document.getElementById("gainInput").value.trim();
+      const gain = document.getElementById("gainInput").value.trim();
 
-      if (!ticker || !company || !shares || marketValue === "" || todayChange === "" || gainLoss === "") {
+      if (!ticker || !company || !shares || !gain) {
         alert("Please fill out all fields.");
         return;
       }
 
       const newStock = {
-        ticker: ticker,
-        company: company,
-        shares: Number(shares),
-        marketValue: Number(marketValue),
-        todayChange: Number(todayChange),
-        gainLoss: Number(gainLoss)
+        ticker,
+        company,
+        shares,
+        gain
       };
 
       stocks.push(newStock);
@@ -811,7 +791,6 @@
 
     function deleteStock(index) {
       const stock = stocks[index];
-
       const confirmDelete = confirm(`Delete ${stock.ticker} from your stock list?`);
 
       if (confirmDelete) {
@@ -824,7 +803,6 @@
 
     window.onclick = function(event) {
       const modal = document.getElementById("stockModal");
-
       if (event.target === modal) {
         closeModal();
       }
