@@ -1,1 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Stock Tracker</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f5f8fc;
+      color: #111827;
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #f8fbff;
+      min-height: 100vh;
+      border: 1px solid #d8e0ea;
+    }
+
+    .header {
+      height: 90px;
+      background: #ffffff;
+      border-bottom: 1px solid #d9e1ec;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 52px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      color: #2563eb;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .add-button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 16px 27px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+      transition: 0.2s;
+    }
+
+    .add-button:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .plus {
+      font-size: 32px;
+      line-height: 20px;
+      font-weight: 300;
+    }
+
+    .content {
+      padding: 32px 52px 40px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+
+    .summary-card {
+      background: #ffffff;
+      border: 1px solid #d9e1ec;
+      border-radius: 10px;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.12);
+      padding: 28px 30px;
+      display: flex;
+      align-items: center;
+      min-height: 130px;
+    }
+
+    .icon-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 28px;
+      flex-shrink: 0;
+    }
+
+    .blue-bg {
+      background: #e8efff;
+      color: #2563eb;
+    }
+
+    .green-bg {
+      background: #e5f7ea;
+      color: #16a34a;
+    }
+
+    .summary-label {
+      font-size: 20px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .summary-value {
+      font-size: 36px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .green {
+      color: #16a34a;
+    }
+
+    .red {
+      color: #dc2626;
+    }
+
+    .small-percent {
+      font-size: 20px;
+      font-weight: 700;
+      margin-left: 28px;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #d9e1ec;
+      border-radius: 10px;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.1);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .section-title {
+      font-size: 26px;
+      font-weight: 800;
+      padding: 24px 26px 18px;
+      color: #111827;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      text-align: left;
+      font-size: 16px;
+      color: #64748b;
+      padding: 16px 26px;
+      font-weight: 700;
+    }
+
+    td {
+      padding: 22px 26px;
+      font-size: 18px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    tbody tr {
+      transition: 0.2s;
+    }
+
+    tbody tr:hover {
+      background: #f1f5ff;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .ticker-link,
+    .company-link {
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .ticker-link {
+      font-weight: 800;
+    }
+
+    .ticker-link:hover,
+    .company-link:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    .gain-loss {
+      font-weight: 700;
+    }
+
+    .delete-btn {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      padding: 8px 14px;
+      border-radius: 7px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .delete-btn:hover {
+      background: #dc2626;
+      color: white;
+    }
+
+    .empty-message {
+      padding: 24px 26px;
+      color: #64748b;
+      font-size: 18px;
+      display: none;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 26px;
+    }
+
+    .range-buttons {
+      display: flex;
+      border: 1px solid #d9e1ec;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .range-buttons button {
+      background: white;
+      border: none;
+      border-right: 1px solid #d9e1ec;
+      padding: 7px 17px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .range-buttons button:last-child {
+      border-right: none;
+    }
+
+    .range-buttons .active {
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+
+    .chart-area {
+      padding: 20px 26px 30px;
+    }
+
+    .chart-box {
+      width: 100%;
+      height: 300px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: white;
+      width: 420px;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .cancel-btn {
+      background: #e5e7eb;
+      color: #111827;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .save-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .header {
+        padding: 0 22px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      .content {
+        padding: 24px 20px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-value {
+        font-size: 30px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      th,
+      td {
+        padding: 14px 12px;
+      }
+
+      .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .range-buttons {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="header">
+      <div class="logo-area">
+        <svg class="logo-icon" viewBox="0 0 64 64" fill="none">
+          <path d="M8 46V30L20 22L30 29L48 10L56 17" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 54V42" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <path d="M28 54V38" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <path d="M44 54V28" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <path d="M56 54V24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <h1 class="title">My Stock Tracker</h1>
+      </div>
+
+      <button class="add-button" onclick="openModal()">
+        <span class="plus">+</span>
+        Add Stock
+      </button>
+    </header>
+
+    <main class="content">
+
+      <section class="summary-grid">
+
+        <div class="summary-card">
+          <div class="icon-circle blue-bg">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+              <path d="M3 7h18v13H3V7z" stroke="currentColor" stroke-width="2" />
+              <path d="M7 7l8-4v4" stroke="currentColor" stroke-width="2" />
+              <circle cx="17" cy="14" r="1.5" fill="currentColor" />
+            </svg>
+          </div>
+          <div>
+            <div class="summary-label">Portfolio Value</div>
+            <div class="summary-value">$25,430.50</div>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="icon-circle green-bg">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+              <path d="M3 17l6-6l4 4l8-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 6h6v6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="summary-label">Today</div>
+            <div>
+              <span class="summary-value green">+$320.25</span>
+              <span class="small-percent green">+1.28%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="icon-circle green-bg">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+              <path d="M8 4h8v5a4 4 0 01-8 0V4z" stroke="currentColor" stroke-width="2"/>
+              <path d="M6 6H3v2a4 4 0 004 4" stroke="currentColor" stroke-width="2"/>
+              <path d="M18 6h3v2a4 4 0 01-4 4" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 13v5" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 20h8" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div>
+            <div class="summary-label">Total Gain/Loss</div>
+            <div>
+              <span class="summary-value green">+$2,145.80</span>
+              <span class="small-percent green">+9.21%</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="section-card">
+        <h2 class="section-title">My Holdings</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Company</th>
+              <th>Shares</th>
+              <th>Gain/Loss</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="stockTable"></tbody>
+        </table>
+
+        <div id="emptyMessage" class="empty-message">
+          No stocks yet. Click “Add Stock” to add your first stock.
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="chart-header">
+          <h2 class="section-title" style="padding-left: 0;">Portfolio Chart</h2>
+
+          <div class="range-buttons">
+            <button>1D</button>
+            <button>1W</button>
+            <button class="active">1M</button>
+            <button>3M</button>
+            <button>6M</button>
+            <button>1Y</button>
+            <button>YTD</button>
+            <button>All</button>
+          </div>
+        </div>
+
+        <div class="chart-area">
+          <svg class="chart-box" viewBox="0 0 1200 300" preserveAspectRatio="none">
+
+            <line x1="60" y1="30" x2="1180" y2="30" stroke="#dbe3ee" stroke-dasharray="4" />
+            <line x1="60" y1="85" x2="1180" y2="85" stroke="#dbe3ee" stroke-dasharray="4" />
+            <line x1="60" y1="140" x2="1180" y2="140" stroke="#dbe3ee" stroke-dasharray="4" />
+            <line x1="60" y1="195" x2="1180" y2="195" stroke="#dbe3ee" stroke-dasharray="4" />
+            <line x1="60" y1="250" x2="1180" y2="250" stroke="#dbe3ee" stroke-dasharray="4" />
+
+            <text x="0" y="35" fill="#475569" font-size="18">$26K</text>
+            <text x="0" y="90" fill="#475569" font-size="18">$24K</text>
+            <text x="0" y="145" fill="#475569" font-size="18">$22K</text>
+            <text x="0" y="200" fill="#475569" font-size="18">$20K</text>
+            <text x="0" y="255" fill="#475569" font-size="18">$18K</text>
+
+            <line x1="60" y1="30" x2="60" y2="250" stroke="#cbd5e1" />
+            <line x1="60" y1="250" x2="1180" y2="250" stroke="#cbd5e1" />
+
+            <defs>
+              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2563eb" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#2563eb" stop-opacity="0.02"/>
+              </linearGradient>
+            </defs>
+
+            <path
+              d="M60,185 
+                 L90,183 L120,195 L150,190 L180,210 L220,198 L260,188 
+                 L300,175 L340,178 L380,165 L420,150 L460,135 
+                 L500,152 L540,140 L580,155 L620,148 L660,135 
+                 L700,115 L740,128 L780,108 L820,118 L860,100 
+                 L900,110 L940,85 L980,70 L1020,82 L1060,65 
+                 L1100,55 L1140,68 L1180,50
+                 L1180,250 L60,250 Z"
+              fill="url(#chartGradient)"
+            />
+
+            <path
+              d="M60,185 
+                 L90,183 L120,195 L150,190 L180,210 L220,198 L260,188 
+                 L300,175 L340,178 L380,165 L420,150 L460,135 
+                 L500,152 L540,140 L580,155 L620,148 L660,135 
+                 L700,115 L740,128 L780,108 L820,118 L860,100 
+                 L900,110 L940,85 L980,70 L1020,82 L1060,65 
+                 L1100,55 L1140,68 L1180,50"
+              fill="none"
+              stroke="#2563eb"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <text x="85" y="285" fill="#475569" font-size="16">Apr 20</text>
+            <text x="210" y="285" fill="#475569" font-size="16">Apr 27</text>
+            <text x="330" y="285" fill="#475569" font-size="16">May 4</text>
+            <text x="450" y="285" fill="#475569" font-size="16">May 11</text>
+            <text x="575" y="285" fill="#475569" font-size="16">May 18</text>
+            <text x="700" y="285" fill="#475569" font-size="16">May 25</text>
+            <text x="825" y="285" fill="#475569" font-size="16">Jun 1</text>
+            <text x="950" y="285" fill="#475569" font-size="16">Jun 8</text>
+            <text x="1060" y="285" fill="#475569" font-size="16">Jun 15</text>
+
+          </svg>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="stockModal">
+    <div class="modal-content">
+      <h2>Add Stock</h2>
+
+      <div class="form-group">
+        <label for="tickerInput">Ticker Symbol</label>
+        <input type="text" id="tickerInput" placeholder="Example: MSFT" />
+      </div>
+
+      <div class="form-group">
+        <label for="companyInput">Company Name</label>
+        <input type="text" id="companyInput" placeholder="Example: Microsoft" />
+      </div>
+
+      <div class="form-group">
+        <label for="sharesInput">Shares</label>
+        <input type="number" id="sharesInput" placeholder="Example: 8" />
+      </div>
+
+      <div class="form-group">
+        <label for="gainInput">Gain/Loss</label>
+        <input type="text" id="gainInput" placeholder="Example: +$120.00 or -$50.00" />
+      </div>
+
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="save-btn" onclick="addStock()">Save Stock</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "myStockTrackerStocks";
+
+    let stocks = [];
+
+    const defaultStocks = [
+      {
+        ticker: "AAPL",
+        company: "Apple",
+        shares: "10",
+        gain: "+$230.00"
+      },
+      {
+        ticker: "TSLA",
+        company: "Tesla",
+        shares: "5",
+        gain: "-$100.00"
+      },
+      {
+        ticker: "NVDA",
+        company: "Nvidia",
+        shares: "3",
+        gain: "+$540.00"
+      }
+    ];
+
+    function loadStocks() {
+      const savedStocks = localStorage.getItem(STORAGE_KEY);
+
+      if (savedStocks) {
+        stocks = JSON.parse(savedStocks);
+      } else {
+        stocks = defaultStocks;
+        saveStocks();
+      }
+
+      renderStocks();
+    }
+
+    function saveStocks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(stocks));
+    }
+
+    function renderStocks() {
+      const table = document.getElementById("stockTable");
+      const emptyMessage = document.getElementById("emptyMessage");
+
+      table.innerHTML = "";
+
+      if (stocks.length === 0) {
+        emptyMessage.style.display = "block";
+        return;
+      }
+
+      emptyMessage.style.display = "none";
+
+      stocks.forEach((stock, index) => {
+        const row = document.createElement("tr");
+        const gainClass = stock.gain.includes("-") ? "red" : "green";
+        const yahooUrl = `https://finance.yahoo.com/quote/${stock.ticker}`;
+
+        row.innerHTML = `
+          <td>
+            <a class="ticker-link" href="${yahooUrl}" target="_blank">${stock.ticker}</a>
+          </td>
+          <td>
+            <a class="company-link" href="${yahooUrl}" target="_blank">${stock.company}</a>
+          </td>
+          <td>${stock.shares} shares</td>
+          <td class="gain-loss ${gainClass}">${stock.gain}</td>
+          <td>
+            <button class="delete-btn" onclick="deleteStock(${index})">Delete</button>
+          </td>
+        `;
+
+        table.appendChild(row);
+      });
+    }
+
+    function openModal() {
+      document.getElementById("stockModal").style.display = "flex";
+      document.getElementById("tickerInput").focus();
+    }
+
+    function closeModal() {
+      document.getElementById("stockModal").style.display = "none";
+      clearForm();
+    }
+
+    function clearForm() {
+      document.getElementById("tickerInput").value = "";
+      document.getElementById("companyInput").value = "";
+      document.getElementById("sharesInput").value = "";
+      document.getElementById("gainInput").value = "";
+    }
+
+    function addStock() {
+      const ticker = document.getElementById("tickerInput").value.trim().toUpperCase();
+      const company = document.getElementById("companyInput").value.trim();
+      const shares = document.getElementById("sharesInput").value.trim();
+      const gain = document.getElementById("gainInput").value.trim();
+
+      if (!ticker || !company || !shares || !gain) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      const newStock = {
+        ticker: ticker,
+        company: company,
+        shares: shares,
+        gain: gain
+      };
+
+      stocks.push(newStock);
+      saveStocks();
+      renderStocks();
+      closeModal();
+    }
+
+    function deleteStock(index) {
+      const stock = stocks[index];
+
+      const confirmDelete = confirm(`Delete ${stock.ticker} from your stock list?`);
+
+      if (confirmDelete) {
+        stocks.splice(index, 1);
+        saveStocks();
+        renderStocks();
+      }
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("stockModal");
+
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    loadStocks();
+  </script>
+</body>
+</html>
