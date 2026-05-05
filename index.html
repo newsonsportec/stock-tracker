@@ -23,27 +23,38 @@
     }
 
     .page {
-      max-width: 1500px;
+      max-width: 1700px;
       margin: 0 auto;
       background: #f8fbff;
       min-height: 100vh;
       border: 1px solid #d8e0ea;
     }
 
+    /* Header */
     .header {
-      height: 90px;
+      min-height: 120px;
       background: #ffffff;
       border-bottom: 1px solid #d9e1ec;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 52px;
+      gap: 28px;
+      padding: 22px 52px;
+    }
+
+    .left-header {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex: 1;
+      min-width: 0;
     }
 
     .logo-area {
       display: flex;
       align-items: center;
       gap: 18px;
+      flex-shrink: 0;
     }
 
     .logo-icon {
@@ -56,6 +67,20 @@
       font-size: 32px;
       font-weight: 800;
       color: #111827;
+      white-space: nowrap;
+    }
+
+    /* Warning message beside title */
+    .header-warning {
+      color: #dc2626;
+      background: #fff1f2;
+      border: 2px solid #fecaca;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.45;
+      max-width: 720px;
     }
 
     .add-button {
@@ -71,6 +96,7 @@
       align-items: center;
       gap: 10px;
       box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+      flex-shrink: 0;
     }
 
     .add-button:hover {
@@ -138,9 +164,9 @@
     }
 
     .section-title {
-      font-size: 26px;
+      font-size: 32px;
       font-weight: 800;
-      padding: 24px 26px 18px;
+      padding: 28px 30px 22px;
       color: #111827;
     }
 
@@ -148,9 +174,10 @@
       overflow-x: auto;
     }
 
+    /* My Holdings list/table x2 bigger */
     table {
       width: 100%;
-      min-width: 1200px;
+      min-width: 1800px;
       border-collapse: collapse;
     }
 
@@ -161,15 +188,15 @@
 
     th {
       text-align: left;
-      font-size: 16px;
+      font-size: 32px;
       color: #64748b;
-      padding: 16px 20px;
-      font-weight: 700;
+      padding: 28px 26px;
+      font-weight: 800;
     }
 
     td {
-      padding: 18px 20px;
-      font-size: 17px;
+      padding: 30px 26px;
+      font-size: 34px;
       border-bottom: 1px solid #e2e8f0;
     }
 
@@ -181,7 +208,7 @@
     .company-link {
       text-decoration: none;
       color: #111827;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .ticker-link:hover,
@@ -191,21 +218,22 @@
     }
 
     .gain-loss {
-      font-weight: 800;
+      font-weight: 900;
     }
 
     .action-buttons {
       display: flex;
-      gap: 8px;
+      gap: 12px;
     }
 
     .edit-btn {
       background: #dbeafe;
       color: #1d4ed8;
       border: 1px solid #bfdbfe;
-      padding: 8px 14px;
-      border-radius: 7px;
-      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 28px;
+      font-weight: 800;
       cursor: pointer;
     }
 
@@ -213,16 +241,27 @@
       background: #fee2e2;
       color: #dc2626;
       border: 1px solid #fecaca;
-      padding: 8px 14px;
-      border-radius: 7px;
-      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 28px;
+      font-weight: 800;
       cursor: pointer;
     }
 
+    .edit-btn:hover {
+      background: #2563eb;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #dc2626;
+      color: white;
+    }
+
     .empty-message {
-      padding: 24px 26px;
+      padding: 32px 30px;
       color: #64748b;
-      font-size: 18px;
+      font-size: 34px;
       display: none;
     }
 
@@ -230,7 +269,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 26px;
+      padding: 0 30px;
     }
 
     .range-buttons {
@@ -261,27 +300,17 @@
     }
 
     .chart-area {
-      padding: 20px 26px 35px;
+      padding: 20px 30px 35px;
       height: 430px;
     }
 
     .loading-text {
-      padding: 0 26px 20px;
+      padding: 0 30px 20px;
       color: #64748b;
       font-size: 16px;
     }
 
-    .disclaimer {
-      color: #dc2626;
-      background: #fff1f2;
-      border-top: 2px solid #fecaca;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 1.6;
-      padding: 24px 40px;
-    }
-
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -359,9 +388,25 @@
       font-weight: 700;
     }
 
+    @media (max-width: 1100px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .left-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-warning {
+        max-width: 100%;
+      }
+    }
+
     @media (max-width: 900px) {
       .header {
-        padding: 0 22px;
+        padding: 22px;
       }
 
       .title {
@@ -393,6 +438,19 @@
       .chart-area {
         height: 360px;
       }
+
+      th {
+        font-size: 24px;
+      }
+
+      td {
+        font-size: 24px;
+      }
+
+      .edit-btn,
+      .delete-btn {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -401,16 +459,23 @@
   <div class="page">
 
     <header class="header">
-      <div class="logo-area">
-        <svg class="logo-icon" viewBox="0 0 64 64" fill="none">
-          <path d="M8 46V30L20 22L30 29L48 10L56 17" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 54V42" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-          <path d="M28 54V38" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 54V28" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-          <path d="M56 54V24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        </svg>
+      <div class="left-header">
+        <div class="logo-area">
+          <svg class="logo-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M8 46V30L20 22L30 29L48 10L56 17" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 54V42" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path d="M28 54V38" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path d="M44 54V28" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path d="M56 54V24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          </svg>
 
-        <h1 class="title">My Stock Tracker</h1>
+          <h1 class="title">My Stock Tracker</h1>
+        </div>
+
+        <div class="header-warning">
+          This website is for personal learning and demonstration only.<br>
+          It is not financial advice. Stock prices and values must be checked with official financial sources before making decisions.
+        </div>
       </div>
 
       <button class="add-button" onclick="openAddModal()">
@@ -495,11 +560,6 @@
         </div>
       </section>
     </main>
-
-    <footer class="disclaimer">
-      This website is for personal learning and demonstration only.<br>
-      It is not financial advice. Stock prices and values must be checked with official financial sources before making decisions.
-    </footer>
   </div>
 
   <div class="modal" id="stockModal">
@@ -1053,4 +1113,3 @@
   </script>
 </body>
 </html>
-    
